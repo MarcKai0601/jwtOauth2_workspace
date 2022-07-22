@@ -19,3 +19,8 @@ CREATE TABLE `oauth_client_details`  (
 
 
 INSERT INTO `oauth_client_details` VALUES ('oauth-server', NULL, '$2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi', 'all', 'password,refresh_token', '', NULL, NULL, NULL, NULL, NULL);
+
+
+
+參考
+https://github.com/lanweihong/spring-securuty-oauth2-jwt
