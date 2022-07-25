@@ -72,7 +72,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
              //   .logoutSuccessHandler(myLogoutSuccessHandler)
              //   .and()
                 .authorizeRequests()
-                .antMatchers("/oath/refreshtoken").authenticated()
+              // .antMatchers("/oath/refreshtoken").authenticated()
                 .antMatchers("/oath/login").permitAll()
                 .anyRequest().authenticated()
                 .and()

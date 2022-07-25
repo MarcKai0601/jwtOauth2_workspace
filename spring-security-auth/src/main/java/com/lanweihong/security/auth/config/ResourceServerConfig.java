@@ -22,12 +22,12 @@ import java.util.List;
 @Configuration
 public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
 
-    @Override
-    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
-        // 自定义OAuth2返回的用户信息
-        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
-        accessTokenConverter.setUserTokenConverter(new MyUserAuthenticationConverter());
-    }
+//    @Override
+//    public void configure(ResourceServerSecurityConfigurer resources) throws Exception {
+//        // 自定义OAuth2返回的用户信息
+//        DefaultAccessTokenConverter accessTokenConverter = new DefaultAccessTokenConverter();
+//        accessTokenConverter.setUserTokenConverter(new MyUserAuthenticationConverter());
+//    }
 
     @Override
     public void configure(HttpSecurity http) throws Exception {
