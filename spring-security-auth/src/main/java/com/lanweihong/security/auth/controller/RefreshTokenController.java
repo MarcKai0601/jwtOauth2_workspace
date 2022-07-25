@@ -2,6 +2,7 @@ package com.lanweihong.security.auth.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -9,6 +10,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.oauth2.common.*;
 import org.springframework.security.oauth2.common.exceptions.InvalidScopeException;
 import org.springframework.security.oauth2.common.exceptions.InvalidTokenException;
+import org.springframework.security.oauth2.common.exceptions.UnapprovedClientAuthenticationException;
 import org.springframework.security.oauth2.provider.*;
 import org.springframework.security.oauth2.provider.token.AuthorizationServerTokenServices;
 import org.springframework.security.oauth2.provider.token.DefaultTokenServices;
@@ -71,35 +73,68 @@ public class RefreshTokenController {
 
     }
 
-    @PostMapping("/oath/refreshtoken")
+    @PostMapping("/oath/logout")
+    public void logout(HttpServletRequest request, HttpServletResponse response, Authentication authentication,@RequestParam Map<String, String> parameters) throws IOException {
+
+        if (authentication  != null) {
+            String grantType = "password";
+            ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
+            if (clientDetails == null) {
+                throw new UnapprovedClientAuthenticationException("clientId对应的配置信息不存在:" + clientId);
+            } else if (!StringUtils.equals(clientDetails.getClientSecret(), clientSecret)) {
+                throw new UnapprovedClientAuthenticationException("clientSecret不匹配:" + clientId);
+            }
+            Set<String> scope = clientDetails.getScope();
+
+            TokenRequest tokenRequest = new TokenRequest(new HashMap<>(), clientId, scope, grantType);
+            OAuth2Request oAuth2Request = tokenRequest.createOAuth2Request(clientDetails);
+            OAuth2Authentication oAuth2Authentication = new OAuth2Authentication(oAuth2Request, authentication);
+            OAuth2AccessToken accessToken = null;
+            accessToken = authorizationServerTokenServices.getAccessToken(oAuth2Authentication);
+            if (accessToken != null) {
+                tokenStore.removeRefreshToken(accessToken.getRefreshToken());
+                tokenStore.removeAccessToken(accessToken);
+            }
+
+        }
+
+        response.setStatus(HttpStatus.OK.value());
+        response.setContentType("application/json;charset=UTF-8");
+        response.getWriter().write(objectMapper.writeValueAsString("logout"));
+
+    }
+        @PostMapping("/oath/refreshtoken")
     public void test(HttpServletRequest request, HttpServletResponse response, Authentication authentication,@RequestParam Map<String, String> parameters) throws IOException {
+        if (authentication != null) {
+            String refresh_token = parameters.get("refresh_token");
+            String grantType = "refresh_token";
+            ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
+            Set<String> scope = clientDetails.getScope();
+            Map<String, String> params = new HashMap<>();
 
-        String refresh_token = parameters.get("refresh_token");
-        String grantType = "refresh_token";
-        ClientDetails clientDetails = clientDetailsService.loadClientByClientId(clientId);
-        Set<String> scope = clientDetails.getScope();
-        Map<String, String>  params = new HashMap<>();
+            TokenRequest tokenRequest = new TokenRequest(params, clientId, scope, grantType);
 
-        TokenRequest tokenRequest = new TokenRequest(params, clientId, scope, grantType);
+            OAuth2AccessToken accessToken = null;
+            DefaultTokenServices defualt = (DefaultTokenServices) authorizationServerTokenServices;
+            //單一登入
+        //    authorizationServerTokenServices.refreshAccessToken(refresh_token,tokenRequest);
 
-        OAuth2AccessToken accessToken = null;
-        DefaultTokenServices defualt = (DefaultTokenServices)authorizationServerTokenServices;
-        //單一登入
+            Integer validity = clientDetails.getRefreshTokenValiditySeconds();
+            //  accessToken = defualt.refreshAccessToken(refresh_token,tokenRequest);
 
-        Integer validity = clientDetails.getRefreshTokenValiditySeconds();
-      //  accessToken = defualt.refreshAccessToken(refresh_token,tokenRequest);
-
-        OAuth2RefreshToken refreshToken = this.tokenStore.readRefreshToken(refresh_token);
-        OAuth2Authentication myauthentication = this.tokenStore.readAuthenticationForRefreshToken(refreshToken);
-        String clientId = myauthentication.getOAuth2Request().getClientId();
-        if (clientId != null && clientId.equals(tokenRequest.getClientId())) {
-            this.tokenStore.removeAccessTokenUsingRefreshToken(refreshToken);
-            this.tokenStore.removeRefreshToken(refreshToken);
-            accessToken = authorizationServerTokenServices.createAccessToken(myauthentication);
+            OAuth2RefreshToken refreshToken = this.tokenStore.readRefreshToken(refresh_token);
+            OAuth2Authentication myauthentication = this.tokenStore.readAuthenticationForRefreshToken(refreshToken);
+            String clientId = myauthentication.getOAuth2Request().getClientId();
+            if (clientId != null && clientId.equals(tokenRequest.getClientId())) {
+                this.tokenStore.removeAccessTokenUsingRefreshToken(refreshToken);
+                this.tokenStore.removeRefreshToken(refreshToken);
+                accessToken = authorizationServerTokenServices.createAccessToken(myauthentication);
+            }
+            response.getWriter().write(objectMapper.writeValueAsString(accessToken));
         }
         response.setStatus(HttpStatus.OK.value());
         response.setContentType("application/json;charset=UTF-8");
-        response.getWriter().write(objectMapper.writeValueAsString(accessToken));
+
 
     }
 

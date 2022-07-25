@@ -32,3 +32,4 @@ security:
     client:
       client-secret: $2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi
       client-id: oauth-server
+
