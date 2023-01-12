@@ -49,6 +49,9 @@ public class ResourceServerConfig extends ResourceServerConfigurerAdapter {
                 .and()
                 .requestMatchers()
                 .antMatchers("/users/**")
+                .antMatchers("/a/**")
+                .antMatchers("/b/**")
+                .antMatchers("/c/**")
                 .antMatchers("/mm/**");
     }
 

@@ -1,8 +1,11 @@
 package com.lanweihong.security.auth;
 
+import com.lanweihong.security.auth.config.Oauth2ServerConfig;
+import com.lanweihong.security.auth.config.WebSecurityConfig;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.context.annotation.Import;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableAuthorizationServer;
 import org.springframework.security.oauth2.config.annotation.web.configuration.EnableResourceServer;
 
