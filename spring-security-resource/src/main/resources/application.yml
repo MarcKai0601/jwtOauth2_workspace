@@ -1,11 +1,22 @@
-server:
-  port: 8092
-spring:
-  application:
-    name: spring-security-resource
-oauth2:
-  resource-id: resource-server
-  check-token-url: http://127.0.0.1:8089/oauth/check_token
-  userAuthorizationUri: http://127.0.0.1:8089/oauth/authorize
-  client-id: oauth-server
-  client-secret: 123456
+##server:
+##  port: 8092
+##spring:
+##  application:
+##    name: spring-security-resource
+##oauth2:
+##  resource-id: resource-server
+##  check-token-url: http://127.0.0.1:8089/oauth/check_token
+##  userAuthorizationUri: http://127.0.0.1:8089/oauth/authorize
+##  client-id: oauth-server
+##  client-secret: 123456
+#server:
+#  port: 8092
+#spring:
+#  application:
+#    name: spring-security-resource
+#oauth2:
+#  resource-id: resource-server
+#  check-token-url: ${nacos.config.checkTokenUrl:http://127.0.0.1:8089/oauth/check_token}
+#  userAuthorizationUri: ${nacos.config.userAuthorizationUri:http://127.0.0.1:8089/oauth/authorize}
+#  client-id: ${nacos.config.clientId:oauth-server}
+#  client-secret: ${nacos.config.clientSecret:123456}

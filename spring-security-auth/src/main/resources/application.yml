@@ -1,35 +1,35 @@
-server:
-  port: 8089
-spring:
-  application:
-    name: spring-security-auth
-  datasource:
-    # 使用Druid连接池
-    type: com.alibaba.druid.pool.DruidDataSource
-    url: jdbc:mysql://127.0.0.1:3306/spring_security_oauth?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
-    username: root
-    password: "S3cret"
-    druid:
-      driver-class-name: com.mysql.cj.jdbc.Driver
-      initial-size: 5
-      max-active: 50
-      max-wait: 60000
-      min-idle: 5
-  redis:
-    host: localhost
-    port: 6379
-    password:
-jwt:
-  key:
-    alias: weihong
-    password: lanweihong
-    storepass: lanweihong
-    path: jwt.jks
-debug: true
-
-security:
-  oauth2:
-    client:
-      client-secret: $2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi
-      client-id: oauth-server
-
+#server:
+#  port: 8089
+#spring:
+#  application:
+#    name: spring-security-auth
+#  datasource:
+#    # 使用Druid连接池
+#    type: com.alibaba.druid.pool.DruidDataSource
+#    url: jdbc:mysql://127.0.0.1:3306/spring_security_oauth?useUnicode=true&characterEncoding=utf8&zeroDateTimeBehavior=convertToNull&useSSL=false&serverTimezone=Asia/Shanghai
+#    username: root
+#    password: password
+#    druid:
+#      driver-class-name: com.mysql.cj.jdbc.Driver
+#      initial-size: 5
+#      max-active: 50
+#      max-wait: 60000
+#      min-idle: 5
+#  redis:
+#    host: localhost
+#    port: 6379
+#    password:
+#jwt:
+#  key:
+#    alias: weihong
+#    password: lanweihong
+#    storepass: lanweihong
+#    path: jwt.jks
+#debug: true
+#
+#security:
+#  oauth2:
+#    client:
+#      client-secret: $2a$10$mcEwJ8qqhk2DYIle6VfhEOZHRdDbCSizAQbIwBR7tTuv9Q7Fca9Gi
+#      client-id: oauth-server
+#

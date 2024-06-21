@@ -10,6 +10,7 @@
     <modules>
         <module>spring-security-auth</module>
         <module>spring-security-resource</module>
+        <module>spring-security-gateway</module>
     </modules>
     <packaging>pom</packaging>
 
