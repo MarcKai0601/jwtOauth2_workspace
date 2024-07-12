@@ -1,9 +1,9 @@
 spring:
   application:
-    #    name: spring-security
+#     name: spring-security
     name: spring-security-gateway
-  #  profiles:
-  #    active: auth
+#    profiles:
+#      active: auth
   cloud:
     nacos:
       config:

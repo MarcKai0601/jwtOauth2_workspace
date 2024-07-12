@@ -8,41 +8,100 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-
     <artifactId>spring-security-gateway</artifactId>
 
-    <dependencies>
-        <!--引入 actuator统计审计信息 讓sentinel控制台能有完善的統計資訊 配合sentinel management.endpoints.web.exposure.include=* -->
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-autoconfigure</artifactId>
-        </dependency>
+<!--    &lt;!&ndash; 依赖包版本管理 &ndash;&gt;-->
+<!--        <properties>-->
+<!--            <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>-->
+<!--            <spring.boot.version>2.1.8.RELEASE</spring.boot.version>-->
+<!--            <spring.cloud.version>Greenwich.SR5</spring.cloud.version>-->
+<!--            <spring.cloud.alibaba.version>2.1.1.RELEASE</spring.cloud.alibaba.version>-->
+<!--            <mysql.driver.version>8.0.28</mysql.driver.version>-->
+<!--            <lombok.version>1.16.18</lombok.version>-->
+<!--            <druid.version>1.1.10</druid.version>-->
+<!--        </properties>-->
 
-        <dependency>
-            <groupId>org.springframework.boot</groupId>
-            <artifactId>spring-boot-starter</artifactId>
-        </dependency>
+<!--    <dependencyManagement>-->
+<!--        <dependencies>-->
+<!--            <dependency>-->
+<!--                <groupId>org.springframework.cloud</groupId> &lt;!&ndash; Spring Cloud 父項目 &ndash;&gt;-->
+<!--                <artifactId>spring-cloud-dependencies</artifactId> &lt;!&ndash; Spring Cloud 依賴管理 &ndash;&gt;-->
+<!--                <version>Greenwich.SR5</version> &lt;!&ndash; 使用上面定義的 Spring Cloud 版本 &ndash;&gt;-->
+<!--                <type>pom</type> &lt;!&ndash; 依賴的類型是 POM &ndash;&gt;-->
+<!--                <scope>import</scope> &lt;!&ndash; 將依賴作為管理導入 &ndash;&gt;-->
+<!--            </dependency>-->
+<!--        </dependencies>-->
+<!--    </dependencyManagement>-->
 
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
-            <version>2.1.2.RELEASE</version>
-        </dependency>
+<!--    <dependencies>-->
+<!--        &lt;!&ndash;引入 actuator统计审计信息 讓sentinel控制台能有完善的統計資訊 配合sentinel management.endpoints.web.exposure.include=* &ndash;&gt;-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-boot-autoconfigure</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
 
-        <!-- 添加Nacos Discovery依賴 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>
-            <version>${spring.cloud.alibaba.version}</version>
-        </dependency>
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.springframework.boot</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-boot-starter</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
 
-        <!-- 添加Nacos Config依賴 -->
-        <dependency>
-            <groupId>com.alibaba.cloud</groupId>
-            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>
-            <version>${spring.cloud.alibaba.version}</version>
-        </dependency>
-    </dependencies>
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>com.alibaba.cloud</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <version>2.1.2.RELEASE</version>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId> &lt;!&ndash; Spring Boot 核心依賴 &ndash;&gt;-->
+<!--            <artifactId>spring-boot-starter</artifactId>-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId> &lt;!&ndash; Spring Boot 測試依賴 &ndash;&gt;-->
+<!--            <artifactId>spring-boot-starter-test</artifactId>-->
+<!--            <scope>test</scope> &lt;!&ndash; 僅用於測試範圍 &ndash;&gt;-->
+<!--        </dependency>-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.cloud</groupId> &lt;!&ndash; Spring Cloud Gateway 依賴 &ndash;&gt;-->
+<!--            <artifactId>spring-cloud-starter-gateway</artifactId>-->
+<!--        </dependency>-->
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>org.springframework.cloud</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>spring-cloud-starter-gateway</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <exclusions>&ndash;&gt;-->
+<!--&lt;!&ndash;                <exclusion>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <groupId>io.projectreactor.netty</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;                    <artifactId>reactor-netty</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;                </exclusion>&ndash;&gt;-->
+<!--&lt;!&ndash;            </exclusions>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+<!--&lt;!&ndash;        <dependency>&ndash;&gt;-->
+<!--&lt;!&ndash;            <groupId>io.projectreactor.netty</groupId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <artifactId>reactor-netty</artifactId>&ndash;&gt;-->
+<!--&lt;!&ndash;            <version>0.9.3.RELEASE</version>&ndash;&gt;-->
+<!--&lt;!&ndash;        </dependency>&ndash;&gt;-->
+
+<!--        <dependency>-->
+<!--            <groupId>org.springframework.boot</groupId> &lt;!&ndash; Spring Boot 驗證依賴 &ndash;&gt;-->
+<!--            <artifactId>spring-boot-starter-validation</artifactId>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; 添加Nacos Discovery依賴 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-nacos-discovery</artifactId>-->
+<!--            <version>${spring.cloud.alibaba.version}</version>-->
+<!--        </dependency>-->
+
+<!--        &lt;!&ndash; 添加Nacos Config依賴 &ndash;&gt;-->
+<!--        <dependency>-->
+<!--            <groupId>com.alibaba.cloud</groupId>-->
+<!--            <artifactId>spring-cloud-starter-alibaba-nacos-config</artifactId>-->
+<!--            <version>${spring.cloud.alibaba.version}</version>-->
+<!--        </dependency>-->
+<!--    </dependencies>-->
 
 
 </project>

@@ -1,16 +1,41 @@
-spring:
-  application:
+#    name: spring-security-auth
+
 #    name: spring-security
-    name: spring-security-auth
 #  profiles:
 #    active: auth
+
+#  上面這兩組是相等的
+
+spring:
+  application:
+    # name: spring-security-auth     # 原应用程序名称，用于标识当前服务，被注释掉
+    name: spring-security            # 当前应用程序名称，用于标识当前服务
+  profiles:
+    active: auth                     # 激活名为 auth 的 Spring 配置文件
   cloud:
     nacos:
       config:
-        server-addr: localhost:8848  # Nacos 服务器地址
-        namespace: jwtOauth2         # 使用的命名空间
-        file-extension: yaml
+        server-addr: localhost:8848  # Nacos 服务器地址，用于配置服务
+        namespace: jwtOauth2         # 使用的命名空间，便于区分不同环境或项目的配置
+        file-extension: yaml         # 配置文件的格式，这里是 yaml
       discovery:
-        server-addr: localhost:8848
-        namespace: jwtOauth2
-      server-addr: localhost:8848
+        server-addr: localhost:8848  # Nacos 服务器地址，用于服务注册与发现
+        namespace: jwtOauth2         # 使用的命名空间，便于区分不同环境或项目的服务
+      server-addr: localhost:8848    # Nacos 服务器地址的简写形式
+
+
+## Spring 应用程序的配置项
+#  spring.application.name=spring-security  # 当前应用程序名称，用于标识当前服务
+#
+#  # Spring 环境配置文件的配置项
+#  spring.profiles.active=auth  # 激活名为 auth 的 Spring 配置文件
+#
+#  # Spring Cloud 的配置项
+#  spring.cloud.nacos.config.server-addr=localhost:8848  # Nacos 服务器地址，用于配置服务
+#  spring.cloud.nacos.config.namespace=jwtOauth2  # 使用的命名空间，便于区分不同环境或项目的配置
+#  spring.cloud.nacos.config.file-extension=yaml  # 配置文件的格式，这里是 yaml
+#
+#  spring.cloud.nacos.discovery.server-addr=localhost:8848  # Nacos 服务器地址，用于服务注册与发现
+#  spring.cloud.nacos.discovery.namespace=jwtOauth2  # 使用的命名空间，便于区分不同环境或项目的服务
+#
+#  spring.cloud.nacos.server-addr=localhost:8848  # Nacos 服务器地址的简写形式
