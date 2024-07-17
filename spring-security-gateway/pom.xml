@@ -15,7 +15,6 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <spring.boot.version>2.1.8.RELEASE</spring.boot.version>
         <spring.cloud.version>Greenwich.SR5</spring.cloud.version>
-<!--        <spring.cloud.alibaba.version>2.1.2.RELEASE</spring.cloud.alibaba.version>-->
         <spring.cloud.alibaba.version>2.1.1.RELEASE</spring.cloud.alibaba.version>
         <mysql.driver.version>8.0.28</mysql.driver.version>
         <lombok.version>1.16.18</lombok.version>
@@ -30,6 +29,15 @@
                 <version>${spring.cloud.version}</version> <!-- 使用定义的 Spring Cloud 版本 -->
                 <type>pom</type> <!-- 依赖类型为 POM -->
                 <scope>import</scope> <!-- 将依赖作为管理导入 -->
+            </dependency>
+
+            <!-- Spring Cloud Alibaba -->
+            <dependency>
+                <groupId>com.alibaba.cloud</groupId>
+                <artifactId>spring-cloud-alibaba-dependencies</artifactId>
+                <version>${spring.cloud.alibaba.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
             </dependency>
         </dependencies>
     </dependencyManagement>
@@ -56,31 +64,17 @@
             <artifactId>spring-cloud-starter-gateway</artifactId>
         </dependency>
 
-<!--        &lt;!&ndash;引入 actuator统计审计信息 讓sentinel控制台能有完善的統計資訊 配合sentinel management.endpoints.web.exposure.include=* &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>org.springframework.boot</groupId>-->
-<!--            <artifactId>spring-boot-starter-actuator</artifactId>-->
-<!--        </dependency>-->
+        <!-- 引入sentinel进行服务降级熔断 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>
+        </dependency>
 
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-starter-alibaba-sentinel</artifactId>-->
-<!--            <version>${spring.cloud.alibaba.version}</version>-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash; Sentinel Gateway 依赖 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.cloud</groupId>-->
-<!--            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>-->
-<!--            <version>${spring.cloud.alibaba.version}</version>-->
-<!--        </dependency>-->
-
-<!--        &lt;!&ndash; Sentinel 核心依赖 &ndash;&gt;-->
-<!--        <dependency>-->
-<!--            <groupId>com.alibaba.csp</groupId>-->
-<!--            <artifactId>sentinel-core</artifactId>-->
-<!--            <version>1.8.1</version> &lt;!&ndash; 根据需要调整版本 &ndash;&gt;-->
-<!--        </dependency>-->
+        <!-- gateway网关整合sentinel进行限流降级 -->
+        <dependency>
+            <groupId>com.alibaba.cloud</groupId>
+            <artifactId>spring-cloud-alibaba-sentinel-gateway</artifactId>
+        </dependency>
 
         <!-- Spring Boot 验证依赖 -->
         <dependency>
